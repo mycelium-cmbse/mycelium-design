@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Mycelium.Design.Bloom</PackageId>
+    <Version>1.0.0</Version>
+    <Title>Mycelium Design - Bloom</Title>
+    <Description>Design-token CSS for Mycelium Bloom: runtime custom properties (light and dark) and the Tailwind v4 @theme inline mapping, generated from the shared DTCG designer export.</Description>
+    <PackageTags>mycelium design-tokens DTCG CSS tailwind bloom</PackageTags>
+    <PackageReleaseNotes>Initial release: tokens-bloom.css and theme-mycelium.css.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="css\tokens-bloom.css" Pack="true" PackagePath="css/" />
+    <None Include="css\theme-mycelium.css" Pack="true" PackagePath="css/" />
+    <None Include="build\Mycelium.Design.Bloom.props" Pack="true" PackagePath="build\" />
+    <None Include="buildTransitive\Mycelium.Design.Bloom.props" Pack="true" PackagePath="buildTransitive\" />
+  </ItemGroup>
+
+</Project>

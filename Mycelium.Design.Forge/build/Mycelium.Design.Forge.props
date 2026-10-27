@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <!-- Preset MyceliumDesignForgeCssDir to preview CSS generated locally instead of the packaged one. -->
+    <MyceliumDesignForgeCssDir Condition="'$(MyceliumDesignForgeCssDir)' == ''">$(MSBuildThisFileDirectory)../css/</MyceliumDesignForgeCssDir>
+    <MyceliumDesignForgeTokensCssPath>$(MyceliumDesignForgeCssDir)tokens-forge.css</MyceliumDesignForgeTokensCssPath>
+    <MyceliumDesignForgeThemeCssPath>$(MyceliumDesignForgeCssDir)theme-mycelium.css</MyceliumDesignForgeThemeCssPath>
+  </PropertyGroup>
+</Project>

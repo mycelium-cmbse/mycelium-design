@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <!-- Preset MyceliumDesignBloomCssDir to preview CSS generated locally instead of the packaged one. -->
+    <MyceliumDesignBloomCssDir Condition="'$(MyceliumDesignBloomCssDir)' == ''">$(MSBuildThisFileDirectory)../css/</MyceliumDesignBloomCssDir>
+    <MyceliumDesignBloomTokensCssPath>$(MyceliumDesignBloomCssDir)tokens-bloom.css</MyceliumDesignBloomTokensCssPath>
+    <MyceliumDesignBloomThemeCssPath>$(MyceliumDesignBloomCssDir)theme-mycelium.css</MyceliumDesignBloomThemeCssPath>
+  </PropertyGroup>
+</Project>

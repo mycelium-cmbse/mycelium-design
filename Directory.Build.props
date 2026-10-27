@@ -1,0 +1,23 @@
+<Project>
+
+  <!-- Imported at the top of every project. Per-project values (PackageId, Version, Title, Description,
+       PackageTags, PackageReleaseNotes) stay in each .csproj so each package's lifecycle is independent. -->
+
+  <PropertyGroup Label="Repository metadata (all design packages)">
+    <Authors>Sam Gerené, Antoine Théate</Authors>
+    <Company>Starion Group S.A.</Company>
+    <Copyright>Copyright © Starion Group S.A.</Copyright>
+    <RepositoryUrl>https://github.com/mycelium-cmbse/mycelium-design.git</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Content-only package defaults (all design packages)">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+</Project>

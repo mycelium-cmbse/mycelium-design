@@ -1,0 +1,8 @@
+bin/
+obj/
+ReleaseBuilds/
+.idea/
+.vs/
+*.user
+node_modules/
+tokens/
