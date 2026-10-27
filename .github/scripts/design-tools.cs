@@ -22,62 +22,14 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
-/// Ingests, validates, compiles and stamps the DTCG design tokens released as the Mycelium.Design packages.
+/// Entry point dispatching each command to the class that implements it.
 /// </summary>
-internal static class DesignTools
+internal static class Program
 {
-    /// <summary>The shared primitives file every export must contain.</summary>
-    private const string PrimitivesFile = "mycelium-primitives.json";
-
-    /// <summary>The semantics file every product/mode folder must contain.</summary>
-    private const string SemanticsFile = "mycelium-semantics.json";
-
-    /// <summary>The folder holding the tokens shared by every product and mode.</summary>
-    private const string SharedDirectory = "shared";
-
-    /// <summary>The Tailwind v4 theme mapping file produced for each product.</summary>
-    private const string ThemeFile = "theme-mycelium.css";
-
-    /// <summary>The header the generator writes at the top of every CSS file.</summary>
-    private const string GeneratedHeader = "/**\n * Do not edit directly, this file was auto-generated.";
-
-    /// <summary>The products a package is released for.</summary>
-    private static readonly string[] Products = ["forge", "bloom"];
-
-    /// <summary>The colour modes every product defines.</summary>
-    private static readonly string[] Modes = ["light", "dark"];
-
-    /// <summary>The token types defined by the DTCG Format Module.</summary>
-    private static readonly HashSet<string> TokenTypes =
-    [
-        "color", "dimension", "fontFamily", "fontWeight", "duration", "cubicBezier", "number",
-        "strokeStyle", "border", "transition", "shadow", "gradient", "typography",
-    ];
-
-    /// <summary>The units a DTCG dimension may use.</summary>
-    private static readonly HashSet<string> DimensionUnits = ["px", "rem"];
-
-    /// <summary>The units a DTCG duration may use.</summary>
-    private static readonly HashSet<string> DurationUnits = ["ms", "s"];
-
-    /// <summary>Matches a DTCG alias such as <c>{color.gray.100}</c>, capturing the referenced path.</summary>
-    private static readonly Regex Alias = new(@"\{([^{}]+)\}", RegexOptions.Compiled);
-
-    /// <summary>Matches a CSS custom property declaration, capturing its name and value.</summary>
-    private static readonly Regex Declaration = new(@"^\s*(--[^:\n]+):\s*([^;\n]*);", RegexOptions.Compiled | RegexOptions.Multiline);
-
-    /// <summary>Values the generator emits when it fails to render a token.</summary>
-    private static readonly string[] UnrenderedValues = ["undefined", "[object Object]", "NaN"];
-
-    /// <summary>The time allowed for a download or an external process.</summary>
-    private static readonly TimeSpan ProcessTimeout = TimeSpan.FromMinutes(5);
-
-    /// <summary>Strict UTF-8 without a byte order mark.</summary>
-    private static readonly Encoding Utf8 = new UTF8Encoding(false, true);
-
     /// <summary>
     /// Dispatches the command named by the first argument.
     /// </summary>
@@ -88,23 +40,23 @@ internal static class DesignTools
         switch (args.FirstOrDefault())
         {
             case "ingest" when args.Length == 3:
-                await IngestAsync(args[1], args[2]);
+                await ArchiveIngester.IngestAsync(args[1], args[2]);
                 return 0;
 
             case "validate" when args.Length == 2:
-                Validate(args[1]);
+                TokenValidator.Validate(args[1]);
                 return 0;
 
             case "generate" when args.Length == 5:
-                await GenerateAsync(args[1], args[2], RequireProduct(args[3]), args[4]);
+                await CssGenerator.GenerateAsync(args[1], args[2], TokenLayout.RequireProduct(args[3]), args[4]);
                 return 0;
 
             case "stamp-css" when args.Length == 5:
-                StampCss(args[1], args[2], args[3], args[4]);
+                CssStamper.Stamp(args[1], args[2], args[3], args[4]);
                 return 0;
 
             default:
-                Fail(
+                Cli.Fail(
                     "usage:\n"
                     + "  ingest    <archive-path-or-https-url> <tokens-dir>\n"
                     + "  validate  <tokens-dir>\n"
@@ -113,13 +65,22 @@ internal static class DesignTools
                 return 1;
         }
     }
+}
+
+/// <summary>
+/// Console conventions shared by every command.
+/// </summary>
+internal static class Cli
+{
+    /// <summary>Strict UTF-8 without a byte order mark.</summary>
+    public static readonly Encoding Utf8 = new UTF8Encoding(false, true);
 
     /// <summary>
     /// Writes the message to standard error and exits with code 1.
     /// </summary>
     /// <param name="message">The failure description.</param>
     [DoesNotReturn]
-    private static void Fail(string message)
+    public static void Fail(string message)
     {
         Console.Error.WriteLine("design-tools: " + message);
         Environment.Exit(1);
@@ -127,32 +88,75 @@ internal static class DesignTools
     }
 
     /// <summary>
-    /// Fails unless the product is one of <see cref="Products" />.
+    /// Writes a progress message to standard output.
     /// </summary>
-    /// <param name="product">The product name to check.</param>
-    /// <returns>The validated product name.</returns>
-    private static string RequireProduct(string product)
-    {
-        if (!Products.Contains(product))
-        {
-            Fail($"unknown product '{product}'; expected {string.Join(" or ", Products)}");
-        }
+    /// <param name="message">The progress description.</param>
+    public static void Report(string message) => Console.WriteLine("design-tools: " + message);
+}
 
-        return product;
-    }
+/// <summary>
+/// The folder layout and alias syntax of a designer export.
+/// </summary>
+internal static class TokenLayout
+{
+    /// <summary>The shared primitives file every export must contain.</summary>
+    public const string PrimitivesFile = "mycelium-primitives.json";
+
+    /// <summary>The semantics file every product/mode folder must contain.</summary>
+    public const string SemanticsFile = "mycelium-semantics.json";
+
+    /// <summary>The folder holding the tokens shared by every product and mode.</summary>
+    public const string SharedDirectory = "shared";
+
+    /// <summary>The products a package is released for.</summary>
+    public static readonly string[] Products = ["forge", "bloom"];
+
+    /// <summary>The colour modes every product defines.</summary>
+    public static readonly string[] Modes = ["light", "dark"];
+
+    /// <summary>Matches a DTCG alias such as <c>{color.gray.100}</c>, capturing the referenced path.</summary>
+    public static readonly Regex Alias = new(@"\{([^{}]+)\}", RegexOptions.Compiled);
 
     /// <summary>
     /// Gets the token files, relative to the tokens folder, that every export must contain.
     /// </summary>
     /// <returns>The relative paths of the required files.</returns>
-    private static IEnumerable<string> RequiredFiles() =>
+    public static IEnumerable<string> RequiredFiles() =>
         Products
-            .SelectMany(product => Modes.Select(mode => Path.Combine($"{product}-{mode}", SemanticsFile)))
+            .SelectMany(product => Modes.Select(mode => Path.Combine(SemanticsDirectory(product, mode), SemanticsFile)))
             .Prepend(Path.Combine(SharedDirectory, PrimitivesFile));
 
-    // ---------------------------------------------------------------------------------------------
-    // ingest
-    // ---------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Gets the folder holding one product/mode's semantics.
+    /// </summary>
+    /// <param name="product">The product.</param>
+    /// <param name="mode">The colour mode.</param>
+    /// <returns>The folder name, relative to the tokens folder.</returns>
+    public static string SemanticsDirectory(string product, string mode) => $"{product}-{mode}";
+
+    /// <summary>
+    /// Fails unless the product is one of <see cref="Products" />.
+    /// </summary>
+    /// <param name="product">The product name to check.</param>
+    /// <returns>The validated product name.</returns>
+    public static string RequireProduct(string product)
+    {
+        if (!Products.Contains(product))
+        {
+            Cli.Fail($"unknown product '{product}'; expected {string.Join(" or ", Products)}");
+        }
+
+        return product;
+    }
+}
+
+/// <summary>
+/// Extracts a designer export archive into a tokens folder.
+/// </summary>
+internal static class ArchiveIngester
+{
+    /// <summary>The time allowed for downloading an archive.</summary>
+    private static readonly TimeSpan DownloadTimeout = TimeSpan.FromMinutes(5);
 
     /// <summary>
     /// Replaces the contents of the tokens folder with the JSON files of a designer export archive.
@@ -160,7 +164,7 @@ internal static class DesignTools
     /// <param name="archive">A local path or an https URL to the zip archive.</param>
     /// <param name="tokensDirectory">The folder whose contents are replaced.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private static async Task IngestAsync(string archive, string tokensDirectory)
+    public static async Task IngestAsync(string archive, string tokensDirectory)
     {
         var workspace = Directory.CreateTempSubdirectory("mycelium-design-");
 
@@ -172,7 +176,7 @@ internal static class DesignTools
 
             if (!File.Exists(archivePath))
             {
-                Fail($"archive {archivePath} does not exist");
+                Cli.Fail($"archive {archivePath} does not exist");
             }
 
             var extracted = Path.Combine(workspace.FullName, "extracted");
@@ -184,34 +188,14 @@ internal static class DesignTools
             }
             catch (Exception error) when (error is InvalidDataException or IOException)
             {
-                Fail($"{archive} is not a usable zip archive: {error.Message}");
+                Cli.Fail($"{archive} is not a usable zip archive: {error.Message}");
             }
 
             var root = FindTokensRoot(extracted, archive);
+            ClearDirectory(tokensDirectory);
+            var copied = CopyTokenFiles(root, tokensDirectory);
 
-            Directory.CreateDirectory(tokensDirectory);
-            foreach (var entry in new DirectoryInfo(tokensDirectory).EnumerateFileSystemInfos())
-            {
-                if (entry is DirectoryInfo directory)
-                {
-                    directory.Delete(true);
-                }
-                else
-                {
-                    entry.Delete();
-                }
-            }
-
-            var copied = 0;
-            foreach (var source in Directory.EnumerateFiles(root, "*.json", SearchOption.AllDirectories))
-            {
-                var target = Path.Combine(tokensDirectory, Path.GetRelativePath(root, source));
-                Directory.CreateDirectory(Path.GetDirectoryName(target)!);
-                File.Copy(source, target);
-                copied++;
-            }
-
-            Console.WriteLine($"design-tools: {archive} -> {tokensDirectory} ({copied} token files)");
+            Cli.Report($"{archive} -> {tokensDirectory} ({copied} token files)");
         }
         finally
         {
@@ -227,7 +211,7 @@ internal static class DesignTools
     /// <returns>The path of the downloaded file.</returns>
     private static async Task<string> DownloadAsync(string url, string workspace)
     {
-        using var client = new HttpClient { Timeout = ProcessTimeout };
+        using var client = new HttpClient { Timeout = DownloadTimeout };
         var path = Path.Combine(workspace, "archive.zip");
 
         try
@@ -236,9 +220,9 @@ internal static class DesignTools
             await using var file = File.Create(path);
             await stream.CopyToAsync(file);
         }
-        catch (Exception error) when (error is HttpRequestException or TaskCanceledException)
+        catch (Exception error) when (error is HttpRequestException or TaskCanceledException or IOException or UnauthorizedAccessException)
         {
-            Fail($"could not download {url}: {error.Message}");
+            Cli.Fail($"could not download {url}: {error.Message}");
         }
 
         return path;
@@ -254,22 +238,79 @@ internal static class DesignTools
     {
         var candidates = Directory.EnumerateDirectories(extracted, "*", SearchOption.AllDirectories)
             .Prepend(extracted)
-            .Where(directory => RequiredFiles().All(file => File.Exists(Path.Combine(directory, file))))
+            .Where(directory => TokenLayout.RequiredFiles().All(file => File.Exists(Path.Combine(directory, file))))
             .ToList();
 
         if (candidates.Count != 1)
         {
-            Fail(
-                $"{archive} must contain exactly one folder holding {string.Join(", ", RequiredFiles())}; "
+            Cli.Fail(
+                $"{archive} must contain exactly one folder holding {string.Join(", ", TokenLayout.RequiredFiles())}; "
                 + $"found {candidates.Count}");
         }
 
         return candidates[0];
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // validate
-    // ---------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Empties a folder, creating it if it does not exist, without deleting the folder itself.
+    /// </summary>
+    /// <param name="directory">The folder to empty.</param>
+    private static void ClearDirectory(string directory)
+    {
+        Directory.CreateDirectory(directory);
+
+        foreach (var entry in new DirectoryInfo(directory).EnumerateFileSystemInfos())
+        {
+            if (entry is DirectoryInfo folder)
+            {
+                folder.Delete(true);
+            }
+            else
+            {
+                entry.Delete();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Copies every JSON file under the source folder, keeping its relative path.
+    /// </summary>
+    /// <param name="source">The extracted export root.</param>
+    /// <param name="target">The tokens folder.</param>
+    /// <returns>The number of files copied.</returns>
+    private static int CopyTokenFiles(string source, string target)
+    {
+        var copied = 0;
+
+        foreach (var file in Directory.EnumerateFiles(source, "*.json", SearchOption.AllDirectories))
+        {
+            var destination = Path.Combine(target, Path.GetRelativePath(source, file));
+            Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
+            File.Copy(file, destination);
+            copied++;
+        }
+
+        return copied;
+    }
+}
+
+/// <summary>
+/// Checks a tokens folder against the DTCG format and the export contract, reporting every blocker at once.
+/// </summary>
+internal static class TokenValidator
+{
+    /// <summary>The token types defined by the DTCG Format Module.</summary>
+    private static readonly HashSet<string> TokenTypes =
+    [
+        "color", "dimension", "fontFamily", "fontWeight", "duration", "cubicBezier", "number",
+        "strokeStyle", "border", "transition", "shadow", "gradient", "typography",
+    ];
+
+    /// <summary>The only units the DTCG Format Module allows for a dimension.</summary>
+    private static readonly HashSet<string> DimensionUnits = ["px", "rem"];
+
+    /// <summary>The only units the DTCG Format Module allows for a duration.</summary>
+    private static readonly HashSet<string> DurationUnits = ["ms", "s"];
 
     /// <summary>
     /// A DTCG token flattened to its dotted path.
@@ -284,66 +325,38 @@ internal static class DesignTools
     /// Fails with every validation blocker found in the tokens folder.
     /// </summary>
     /// <param name="tokensDirectory">The tokens folder to validate.</param>
-    private static void Validate(string tokensDirectory)
+    public static void Validate(string tokensDirectory)
     {
-        var errors = new List<string>();
-
-        foreach (var file in RequiredFiles().Where(file => !File.Exists(Path.Combine(tokensDirectory, file))))
-        {
-            errors.Add($"missing required file {file}");
-        }
+        var errors = TokenLayout.RequiredFiles()
+            .Where(file => !File.Exists(Path.Combine(tokensDirectory, file)))
+            .Select(file => $"missing required file {file}")
+            .ToList();
 
         if (errors.Count > 0)
         {
-            Report(tokensDirectory, errors);
+            Conclude(tokensDirectory, errors);
         }
 
-        var shared = LoadTokens(Path.Combine(tokensDirectory, SharedDirectory), tokensDirectory, errors);
+        var shared = LoadTokens(Path.Combine(tokensDirectory, TokenLayout.SharedDirectory), tokensDirectory, errors);
 
-        foreach (var product in Products)
+        foreach (var product in TokenLayout.Products)
         {
             var semanticsByMode = new Dictionary<string, List<Token>>();
 
-            foreach (var mode in Modes)
+            foreach (var mode in TokenLayout.Modes)
             {
-                var semantics = LoadTokens(Path.Combine(tokensDirectory, $"{product}-{mode}"), tokensDirectory, errors);
+                var semantics = LoadTokens(
+                    Path.Combine(tokensDirectory, TokenLayout.SemanticsDirectory(product, mode)), tokensDirectory, errors);
                 semanticsByMode[mode] = semantics;
 
-                foreach (var token in semantics.Where(token => token.Value is not JsonValue value
-                             || value.GetValueKind() != JsonValueKind.String
-                             || !Alias.IsMatch(value.GetValue<string>())))
-                {
-                    errors.Add($"{token.File}: semantic token {token.Path} must alias a primitive, not hold a literal");
-                }
-
-                var context = shared.GroupBy(token => token.Path).ToDictionary(group => group.Key, group => group.Last());
-                foreach (var token in semantics)
-                {
-                    // A semantic token aliasing its own path re-exports the shared primitive it shadows.
-                    if (token.Value is JsonValue value && value.ToString() == $"{{{token.Path}}}")
-                    {
-                        if (!context.ContainsKey(token.Path))
-                        {
-                            errors.Add($"{token.File}: {token.Path} re-exports a primitive that does not exist");
-                        }
-
-                        continue;
-                    }
-
-                    context[token.Path] = token;
-                }
-
-                CheckAliases(context, errors);
+                CheckSemanticsAreAliases(semantics, errors);
+                CheckAliases(ResolutionContext(shared, semantics, errors), errors);
             }
 
-            var light = semanticsByMode["light"].Select(token => token.Path).ToHashSet();
-            var dark = semanticsByMode["dark"].Select(token => token.Path).ToHashSet();
-
-            errors.AddRange(light.Except(dark).Select(path => $"{product}: {path} has a light value but no dark value"));
-            errors.AddRange(dark.Except(light).Select(path => $"{product}: {path} has a dark value but no light value"));
+            CheckModeParity(product, semanticsByMode["light"], semanticsByMode["dark"], errors);
         }
 
-        Report(tokensDirectory, errors);
+        Conclude(tokensDirectory, errors);
     }
 
     /// <summary>
@@ -351,14 +364,14 @@ internal static class DesignTools
     /// </summary>
     /// <param name="tokensDirectory">The validated tokens folder.</param>
     /// <param name="errors">The collected validation blockers.</param>
-    private static void Report(string tokensDirectory, List<string> errors)
+    private static void Conclude(string tokensDirectory, List<string> errors)
     {
         if (errors.Count > 0)
         {
-            Fail($"{tokensDirectory} has {errors.Count} validation blocker(s):\n  " + string.Join("\n  ", errors.Distinct()));
+            Cli.Fail($"{tokensDirectory} has {errors.Count} validation blocker(s):\n  " + string.Join("\n  ", errors.Distinct()));
         }
 
-        Console.WriteLine($"design-tools: {tokensDirectory} is valid");
+        Cli.Report($"{tokensDirectory} is valid");
     }
 
     /// <summary>
@@ -379,7 +392,7 @@ internal static class DesignTools
             JsonNode? document;
             try
             {
-                document = JsonNode.Parse(Utf8.GetString(File.ReadAllBytes(path)));
+                document = JsonNode.Parse(Cli.Utf8.GetString(File.ReadAllBytes(path)));
             }
             catch (Exception error) when (error is JsonException or DecoderFallbackException)
             {
@@ -496,6 +509,50 @@ internal static class DesignTools
     }
 
     /// <summary>
+    /// Reports every semantic token holding a literal rather than an alias.
+    /// </summary>
+    /// <param name="semantics">The tokens of one product/mode.</param>
+    /// <param name="errors">Receives the violations found.</param>
+    private static void CheckSemanticsAreAliases(List<Token> semantics, List<string> errors)
+    {
+        errors.AddRange(semantics
+            .Where(token => token.Value is not JsonValue value
+                || value.GetValueKind() != JsonValueKind.String
+                || !TokenLayout.Alias.IsMatch(value.GetValue<string>()))
+            .Select(token => $"{token.File}: semantic token {token.Path} must alias a primitive, not hold a literal"));
+    }
+
+    /// <summary>
+    /// Builds the tokens visible to one product/mode: the shared tokens overridden by its semantics.
+    /// </summary>
+    /// <param name="shared">The shared tokens.</param>
+    /// <param name="semantics">The tokens of one product/mode.</param>
+    /// <param name="errors">Receives re-exports of primitives that do not exist.</param>
+    /// <returns>The visible tokens, by path.</returns>
+    private static Dictionary<string, Token> ResolutionContext(List<Token> shared, List<Token> semantics, List<string> errors)
+    {
+        var context = shared.GroupBy(token => token.Path).ToDictionary(group => group.Key, group => group.Last());
+
+        foreach (var token in semantics)
+        {
+            // A semantic token aliasing its own path re-exports the shared primitive it shadows.
+            if (token.Value is JsonValue value && value.ToString() == $"{{{token.Path}}}")
+            {
+                if (!context.ContainsKey(token.Path))
+                {
+                    errors.Add($"{token.File}: {token.Path} re-exports a primitive that does not exist");
+                }
+
+                continue;
+            }
+
+            context[token.Path] = token;
+        }
+
+        return context;
+    }
+
+    /// <summary>
     /// Reports aliases that resolve to no token and aliases that form a cycle.
     /// </summary>
     /// <param name="context">The tokens visible to one product and mode, by path.</param>
@@ -505,7 +562,7 @@ internal static class DesignTools
         var references = context.ToDictionary(
             pair => pair.Key,
             pair => Strings(pair.Value.Value)
-                .SelectMany(text => Alias.Matches(text).Select(match => match.Groups[1].Value))
+                .SelectMany(text => TokenLayout.Alias.Matches(text).Select(match => match.Groups[1].Value))
                 .ToList());
 
         foreach (var (path, targets) in references)
@@ -516,25 +573,49 @@ internal static class DesignTools
             }
         }
 
-        var state = new Dictionary<string, bool>();
+        var visited = new Dictionary<string, bool>();
 
-        bool HasCycle(string path)
-        {
-            if (state.TryGetValue(path, out var done))
-            {
-                return !done;
-            }
-
-            state[path] = false;
-            var cyclic = references[path].Where(references.ContainsKey).Any(HasCycle);
-            state[path] = true;
-            return cyclic;
-        }
-
-        foreach (var path in references.Keys.Where(path => !state.ContainsKey(path) && HasCycle(path)))
+        foreach (var path in references.Keys.Where(path => !visited.ContainsKey(path) && HasCycle(path, references, visited)))
         {
             errors.Add($"{context[path].File}: {path} is part of an alias cycle");
         }
+    }
+
+    /// <summary>
+    /// Determines, depth first, whether following aliases from a token leads back to a token still being visited.
+    /// </summary>
+    /// <param name="path">The token to start from.</param>
+    /// <param name="references">The alias targets of every token, by path.</param>
+    /// <param name="visited">Visit state by path: <c>false</c> while in progress, <c>true</c> once finished.</param>
+    /// <returns><c>true</c> if a cycle is reachable from the token.</returns>
+    private static bool HasCycle(string path, Dictionary<string, List<string>> references, Dictionary<string, bool> visited)
+    {
+        if (visited.TryGetValue(path, out var finished))
+        {
+            return !finished;
+        }
+
+        visited[path] = false;
+        var cyclic = references[path].Where(references.ContainsKey).Any(target => HasCycle(target, references, visited));
+        visited[path] = true;
+
+        return cyclic;
+    }
+
+    /// <summary>
+    /// Reports tokens defined in only one of a product's light and dark semantics.
+    /// </summary>
+    /// <param name="product">The product.</param>
+    /// <param name="light">The light semantics.</param>
+    /// <param name="dark">The dark semantics.</param>
+    /// <param name="errors">Receives the violations found.</param>
+    private static void CheckModeParity(string product, List<Token> light, List<Token> dark, List<string> errors)
+    {
+        var lightPaths = light.Select(token => token.Path).ToHashSet();
+        var darkPaths = dark.Select(token => token.Path).ToHashSet();
+
+        errors.AddRange(lightPaths.Except(darkPaths).Select(path => $"{product}: {path} has a light value but no dark value"));
+        errors.AddRange(darkPaths.Except(lightPaths).Select(path => $"{product}: {path} has a dark value but no light value"));
     }
 
     /// <summary>
@@ -550,10 +631,24 @@ internal static class DesignTools
             JsonValue value when value.GetValueKind() == JsonValueKind.String => [value.GetValue<string>()],
             _ => [],
         };
+}
 
-    // ---------------------------------------------------------------------------------------------
-    // generate
-    // ---------------------------------------------------------------------------------------------
+/// <summary>
+/// Runs the Node.js generator for one product and verifies the CSS it produces.
+/// </summary>
+internal static class CssGenerator
+{
+    /// <summary>The Tailwind v4 theme mapping file produced for each product.</summary>
+    private const string ThemeFile = "theme-mycelium.css";
+
+    /// <summary>The header the generator writes at the top of every CSS file.</summary>
+    private const string GeneratedHeader = "/**\n * Do not edit directly, this file was auto-generated.";
+
+    /// <summary>Matches a CSS custom property declaration, capturing its name and value.</summary>
+    private static readonly Regex Declaration = new(@"^\s*(--[^:\n]+):\s*([^;\n]*);", RegexOptions.Compiled | RegexOptions.Multiline);
+
+    /// <summary>Values the generator emits when it fails to render a token.</summary>
+    private static readonly string[] UnrenderedValues = ["undefined", "[object Object]", "NaN"];
 
     /// <summary>
     /// Generates and verifies the CSS of one product, then replaces the CSS files in the target folder.
@@ -563,30 +658,22 @@ internal static class DesignTools
     /// <param name="product">The product to generate.</param>
     /// <param name="cssDirectory">The folder receiving the CSS files.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private static async Task GenerateAsync(string tokensDirectory, string generatorDirectory, string product, string cssDirectory)
+    public static async Task GenerateAsync(string tokensDirectory, string generatorDirectory, string product, string cssDirectory)
     {
         var workspace = Directory.CreateTempSubdirectory("mycelium-design-");
 
         try
         {
-            string[] npmCi = ["npm", "ci", "--ignore-scripts", "--no-audit", "--no-fund"];
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                await RunAsync("cmd.exe", ["/c", .. npmCi], generatorDirectory);
-            }
-            else
-            {
-                await RunAsync(npmCi[0], npmCi[1..], generatorDirectory);
-            }
+            await ProcessRunner.NpmCiAsync(generatorDirectory);
 
-            var expected = new[] { $"tokens-{product}.css", ThemeFile };
+            string[] expected = [$"tokens-{product}.css", ThemeFile];
             var runs = new List<string>();
 
             // Generated twice so a nondeterministic transform fails here rather than as a spurious diff.
             for (var run = 1; run <= 2; run++)
             {
                 var output = Path.Combine(workspace.FullName, $"run{run}");
-                await RunAsync(
+                await ProcessRunner.RunAsync(
                     "node",
                     [
                         "build-tokens.mjs",
@@ -603,21 +690,11 @@ internal static class DesignTools
             foreach (var file in expected.Where(file => !File.ReadAllBytes(Path.Combine(runs[0], file))
                          .SequenceEqual(File.ReadAllBytes(Path.Combine(runs[1], file)))))
             {
-                Fail($"{file} differs between two generations from the same tokens; the transform is not deterministic");
+                Cli.Fail($"{file} differs between two generations from the same tokens; the transform is not deterministic");
             }
 
-            Directory.CreateDirectory(cssDirectory);
-            foreach (var stale in Directory.EnumerateFiles(cssDirectory, "*.css"))
-            {
-                File.Delete(stale);
-            }
-
-            foreach (var file in expected)
-            {
-                File.Copy(Path.Combine(runs[0], file), Path.Combine(cssDirectory, file));
-            }
-
-            Console.WriteLine($"design-tools: {product} -> {cssDirectory} ({string.Join(", ", expected)})");
+            ReplaceCss(runs[0], cssDirectory, expected);
+            Cli.Report($"{product} -> {cssDirectory} ({string.Join(", ", expected)})");
         }
         finally
         {
@@ -650,46 +727,103 @@ internal static class DesignTools
                 continue;
             }
 
-            var content = File.ReadAllText(path, Utf8);
-
-            if (!content.StartsWith(GeneratedHeader, StringComparison.Ordinal))
-            {
-                errors.Add($"{file} does not start with the generated-file header");
-            }
-
-            foreach (Match declaration in Declaration.Matches(content))
-            {
-                var value = declaration.Groups[2].Value;
-                if (value.Length == 0 || Alias.IsMatch(value) || UnrenderedValues.Any(value.Contains))
-                {
-                    errors.Add($"{file}: {declaration.Groups[1].Value} has unusable value '{value}'");
-                }
-            }
+            CheckRendering(file, File.ReadAllText(path, Cli.Utf8), errors);
         }
 
-        var tokens = Path.Combine(directory, $"tokens-{product}.css");
-        var theme = Path.Combine(directory, ThemeFile);
-
-        if (File.Exists(tokens))
-        {
-            var content = File.ReadAllText(tokens, Utf8);
-            errors.AddRange(new[] { ":root {", ".dark {", "--background:" }
-                .Where(marker => !content.Contains(marker, StringComparison.Ordinal))
-                .Select(marker => $"tokens-{product}.css lacks '{marker}'"));
-        }
-
-        if (File.Exists(theme))
-        {
-            var content = File.ReadAllText(theme, Utf8);
-            errors.AddRange(new[] { "@theme inline {", "--color-", "--radius-", "--spacing-", "--text-" }
-                .Where(marker => !content.Contains(marker, StringComparison.Ordinal))
-                .Select(marker => $"{ThemeFile} lacks '{marker}'"));
-        }
+        CheckMarkers(Path.Combine(directory, $"tokens-{product}.css"), [":root {", ".dark {", "--background:"], errors);
+        CheckMarkers(Path.Combine(directory, ThemeFile), ["@theme inline {", "--color-", "--radius-", "--spacing-", "--text-"], errors);
 
         if (errors.Count > 0)
         {
-            Fail($"generated CSS for {product} failed verification:\n  " + string.Join("\n  ", errors));
+            Cli.Fail($"generated CSS for {product} failed verification:\n  " + string.Join("\n  ", errors));
         }
+    }
+
+    /// <summary>
+    /// Reports a missing generated-file header and every declaration whose value is empty, unresolved or unrendered.
+    /// </summary>
+    /// <param name="file">The file name used in error messages.</param>
+    /// <param name="content">The CSS content.</param>
+    /// <param name="errors">Receives the violations found.</param>
+    private static void CheckRendering(string file, string content, List<string> errors)
+    {
+        if (!content.StartsWith(GeneratedHeader, StringComparison.Ordinal))
+        {
+            errors.Add($"{file} does not start with the generated-file header");
+        }
+
+        foreach (Match declaration in Declaration.Matches(content))
+        {
+            var value = declaration.Groups[2].Value;
+            if (value.Length == 0 || TokenLayout.Alias.IsMatch(value) || UnrenderedValues.Any(value.Contains))
+            {
+                errors.Add($"{file}: {declaration.Groups[1].Value} has unusable value '{value}'");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Reports every marker missing from a generated file; a missing file is reported elsewhere.
+    /// </summary>
+    /// <param name="path">The generated file.</param>
+    /// <param name="markers">The text the file must contain.</param>
+    /// <param name="errors">Receives the violations found.</param>
+    private static void CheckMarkers(string path, string[] markers, List<string> errors)
+    {
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        var content = File.ReadAllText(path, Cli.Utf8);
+        errors.AddRange(markers
+            .Where(marker => !content.Contains(marker, StringComparison.Ordinal))
+            .Select(marker => $"{Path.GetFileName(path)} lacks '{marker}'"));
+    }
+
+    /// <summary>
+    /// Replaces every CSS file in the target folder with the given generated files.
+    /// </summary>
+    /// <param name="source">The folder holding the generated files.</param>
+    /// <param name="cssDirectory">The folder receiving the CSS files.</param>
+    /// <param name="files">The file names to copy.</param>
+    private static void ReplaceCss(string source, string cssDirectory, string[] files)
+    {
+        Directory.CreateDirectory(cssDirectory);
+
+        foreach (var stale in Directory.EnumerateFiles(cssDirectory, "*.css"))
+        {
+            File.Delete(stale);
+        }
+
+        foreach (var file in files)
+        {
+            File.Copy(Path.Combine(source, file), Path.Combine(cssDirectory, file));
+        }
+    }
+}
+
+/// <summary>
+/// Runs external tools, echoing their output and failing the command when they fail.
+/// </summary>
+internal static class ProcessRunner
+{
+    /// <summary>The time allowed for an external process.</summary>
+    private static readonly TimeSpan ProcessTimeout = TimeSpan.FromMinutes(5);
+
+    /// <summary>
+    /// Installs the generator's locked npm dependencies without running their install scripts.
+    /// </summary>
+    /// <param name="generatorDirectory">The folder holding <c>package-lock.json</c>.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public static Task NpmCiAsync(string generatorDirectory)
+    {
+        string[] npmCi = ["npm", "ci", "--ignore-scripts", "--no-audit", "--no-fund"];
+
+        // npm is a .cmd shim on Windows, which only resolves its own location when started through cmd.exe.
+        return RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            ? RunAsync("cmd.exe", ["/c", .. npmCi], generatorDirectory)
+            : RunAsync(npmCi[0], npmCi[1..], generatorDirectory);
     }
 
     /// <summary>
@@ -699,7 +833,7 @@ internal static class DesignTools
     /// <param name="arguments">The arguments, passed without shell quoting.</param>
     /// <param name="workingDirectory">The working directory of the process.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private static async Task RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory)
+    public static async Task RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory)
     {
         var startInfo = new ProcessStartInfo(fileName)
         {
@@ -713,7 +847,7 @@ internal static class DesignTools
             startInfo.ArgumentList.Add(argument);
         }
 
-        using var timeout = new System.Threading.CancellationTokenSource(ProcessTimeout);
+        using var timeout = new CancellationTokenSource(ProcessTimeout);
         using var process = new Process { StartInfo = startInfo };
 
         try
@@ -722,7 +856,7 @@ internal static class DesignTools
         }
         catch (System.ComponentModel.Win32Exception error)
         {
-            Fail($"could not start {fileName}: {error.Message}");
+            Cli.Fail($"could not start {fileName}: {error.Message}");
         }
 
         var standardOutput = process.StandardOutput.ReadToEndAsync(timeout.Token);
@@ -735,7 +869,7 @@ internal static class DesignTools
         catch (OperationCanceledException)
         {
             process.Kill(true);
-            Fail($"{fileName} timed out after {ProcessTimeout.TotalMinutes} minutes");
+            Cli.Fail($"{fileName} timed out after {ProcessTimeout.TotalMinutes} minutes");
         }
 
         Console.Write(await standardOutput);
@@ -743,16 +877,18 @@ internal static class DesignTools
 
         if (process.ExitCode != 0)
         {
-            Fail($"{fileName} {string.Join(' ', arguments)} exited with {process.ExitCode}:\n{errorOutput}");
+            Cli.Fail($"{fileName} {string.Join(' ', arguments)} exited with {process.ExitCode}:\n{errorOutput}");
         }
 
         Console.Error.Write(errorOutput);
     }
+}
 
-    // ---------------------------------------------------------------------------------------------
-    // stamp-css
-    // ---------------------------------------------------------------------------------------------
-
+/// <summary>
+/// Writes release metadata into the header of generated CSS files.
+/// </summary>
+internal static class CssStamper
+{
     /// <summary>
     /// Adds or updates the release metadata lines in the header of every CSS file in a folder.
     /// </summary>
@@ -760,45 +896,57 @@ internal static class DesignTools
     /// <param name="version">The released package version.</param>
     /// <param name="packageId">The released package id.</param>
     /// <param name="releaseDate">The release date, as yyyy-MM-dd.</param>
-    private static void StampCss(string cssDirectory, string version, string packageId, string releaseDate)
+    public static void Stamp(string cssDirectory, string version, string packageId, string releaseDate)
     {
         var files = Directory.EnumerateFiles(cssDirectory, "*.css").Order(StringComparer.Ordinal).ToList();
         if (files.Count == 0)
         {
-            Fail($"no .css files found in {cssDirectory}");
+            Cli.Fail($"no .css files found in {cssDirectory}");
         }
+
+        (string Key, string Value)[] metadata =
+        [
+            ("mycelium-version", version),
+            ("mycelium-packageId", packageId),
+            ("mycelium-releaseDate", releaseDate),
+        ];
 
         foreach (var path in files)
         {
-            var content = File.ReadAllText(path, Utf8);
-            var headerEnd = content.IndexOf(" */\n", StringComparison.Ordinal);
-
-            if (!content.StartsWith("/**\n", StringComparison.Ordinal) || headerEnd == -1)
-            {
-                Fail($"{path} has no leading /** ... */ header to stamp");
-            }
-
-            var header = content[..headerEnd];
-
-            foreach (var (key, value) in new[]
-                     {
-                         ("mycelium-version", version),
-                         ("mycelium-packageId", packageId),
-                         ("mycelium-releaseDate", releaseDate),
-                     })
-            {
-                var line = $" * {key}: {value}\n";
-                var existing = Regex.Match(header, $@"^ \* {Regex.Escape(key)}: .*\n", RegexOptions.Multiline);
-                header = existing.Success
-                    ? header[..existing.Index] + line + header[(existing.Index + existing.Length)..]
-                    : header + line;
-            }
-
-            File.WriteAllText(path, header + content[headerEnd..], Utf8);
+            File.WriteAllText(path, StampHeader(path, File.ReadAllText(path, Cli.Utf8), metadata), Cli.Utf8);
         }
 
-        Console.WriteLine(
-            $"design-tools: {cssDirectory} <- version={version} packageId={packageId} releaseDate={releaseDate} "
-            + $"({files.Count} files)");
+        Cli.Report(
+            $"{cssDirectory} <- version={version} packageId={packageId} releaseDate={releaseDate} ({files.Count} files)");
+    }
+
+    /// <summary>
+    /// Adds or updates one <c> * key: value</c> line per metadata entry in the file's leading comment.
+    /// </summary>
+    /// <param name="path">The file path used in error messages.</param>
+    /// <param name="content">The CSS content.</param>
+    /// <param name="metadata">The entries to write.</param>
+    /// <returns>The stamped CSS content.</returns>
+    private static string StampHeader(string path, string content, (string Key, string Value)[] metadata)
+    {
+        var headerEnd = content.IndexOf(" */\n", StringComparison.Ordinal);
+
+        if (!content.StartsWith("/**\n", StringComparison.Ordinal) || headerEnd == -1)
+        {
+            Cli.Fail($"{path} has no leading /** ... */ header to stamp");
+        }
+
+        var header = content[..headerEnd];
+
+        foreach (var (key, value) in metadata)
+        {
+            var line = $" * {key}: {value}\n";
+            var existing = Regex.Match(header, $@"^ \* {Regex.Escape(key)}: .*\n", RegexOptions.Multiline);
+            header = existing.Success
+                ? header[..existing.Index] + line + header[(existing.Index + existing.Length)..]
+                : header + line;
+        }
+
+        return header + content[headerEnd..];
     }
 }
