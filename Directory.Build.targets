@@ -1,0 +1,8 @@
+<Project>
+
+  <ItemGroup Label="Shared package assets (README/LICENSE, all design packages)">
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
