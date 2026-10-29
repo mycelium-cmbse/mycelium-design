@@ -4,7 +4,7 @@ message: "If you use this software, please cite it as below."
 title: "mycelium-design: The design-token CSS packages for Forge and Bloom"
 abstract: "DTCG design tokens exported from the shared Mycelium Figma library, validated and compiled into CSS custom properties and Tailwind v4 theme mappings for Forge and Bloom"
 version: "1.0.0"
-date-released: "2026-10-27"
+date-released: "2026-10-29"
 url: "https://github.com/mycelium-cmbse/mycelium-design"
 
 authors:
@@ -35,4 +35,4 @@ preferred-citation:
     - name: "Starion Group S.A."
   version: "1.0.0"
   url: "https://github.com/mycelium-cmbse/mycelium-design"
-  date-released: "2026-10-27"
+  date-released: "2026-10-29"

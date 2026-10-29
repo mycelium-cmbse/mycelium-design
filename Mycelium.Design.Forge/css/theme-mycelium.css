@@ -1,6 +1,9 @@
 /**
  * Do not edit directly, this file was auto-generated.
  * theme-mycelium.css
+ * mycelium-version: 1.0.0
+ * mycelium-packageId: Mycelium.Design.Forge
+ * mycelium-releaseDate: 2026-10-29
  */
 
 @theme inline {
@@ -23,6 +26,7 @@
   --spacing-4\.25: var(--spacing-17); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-4\.5: var(--spacing-18); /** Scale primitive, value in px, derived from the reference prototypes. */
   --spacing-5: var(--spacing-20); /** Scale primitive, value in px, derived from the reference prototypes. */
+  --spacing-5\.25: var(--spacing-21); /** Covers a value the Hypha MCP Apps design really uses. */
   --spacing-5\.5: var(--spacing-22); /** Scale step derived from real usage in the prototypes. */
   --spacing-5\.75: var(--spacing-23); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-6: var(--spacing-24); /** Scale primitive, value in px, derived from the reference prototypes. */
@@ -42,10 +46,13 @@
   --spacing-14: var(--spacing-56); /** Scale step derived from real usage in the prototypes. */
   --spacing-15: var(--spacing-60); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-16: var(--spacing-64); /** Scale primitive, value in px, derived from the reference prototypes. */
+  --spacing-17: var(--spacing-68); /** Part Tree indent (20 + 12 per level). */
   --spacing-18\.25: var(--spacing-73); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-20: var(--spacing-80); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-20\.5: var(--spacing-82); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
+  --spacing-22: var(--spacing-88); /** Indent of a variant nested three levels deep in the variation point table (16 + 3 x 24). Not a layout step: a tree indent. */
   --spacing-26: var(--spacing-104); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
+  --spacing-30: var(--spacing-120); /** Indent that aligns the per-configuration values of an attribute under the value column of the Properties panel (label column 112 plus gap 8). */
   --spacing-60: var(--spacing-240); /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-71\.25: var(--spacing-285); /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-79\.25: var(--spacing-317); /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
@@ -99,6 +106,9 @@
   --text-28: var(--text-28); /** Scale primitive, value in px, derived from the reference prototypes. */
   --text-32: var(--text-32); /** Scale step derived from real usage in the prototypes. */
   --text-44: var(--text-44); /** Scale step derived from real usage in the prototypes. */
+  --text-48: var(--text-48); /** Video typography step (product video, 1080p frame). Not for product UI. */
+  --text-72: var(--text-72); /** Video typography step (product video, 1080p frame). Not for product UI. */
+  --text-120: var(--text-120); /** Video typography step (product video, 1080p frame). Not for product UI. */
   --text-9-5: var(--text-9-5); /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-10-5: var(--text-10-5); /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-11-5: var(--text-11-5); /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
@@ -249,6 +259,26 @@
   --text-ui-semibold-15: 15px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
   --font-weight-ui-semibold-15: 600; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
   --font-ui-semibold-15: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
+  --text-video-hero: 120px; /** Video hero line, one short statement per frame. 1080p frame. */
+  --leading-video-hero: 120px; /** Video hero line, one short statement per frame. 1080p frame. */
+  --font-weight-video-hero: 700; /** Video hero line, one short statement per frame. 1080p frame. */
+  --font-video-hero: Inter; /** Video hero line, one short statement per frame. 1080p frame. */
+  --text-video-title: 72px; /** Video title, chapter statements and end card tagline. */
+  --leading-video-title: 80px; /** Video title, chapter statements and end card tagline. */
+  --font-weight-video-title: 700; /** Video title, chapter statements and end card tagline. */
+  --font-video-title: Inter; /** Video title, chapter statements and end card tagline. */
+  --text-video-subtitle: 48px; /** Video subtitle, stage text above the product window. */
+  --leading-video-subtitle: 56px; /** Video subtitle, stage text above the product window. */
+  --font-weight-video-subtitle: 600; /** Video subtitle, stage text above the product window. */
+  --font-video-subtitle: Inter; /** Video subtitle, stage text above the product window. */
+  --text-video-caption: 32px; /** Video caption over the product UI, max 7 words. */
+  --leading-video-caption: 40px; /** Video caption over the product UI, max 7 words. */
+  --font-weight-video-caption: 500; /** Video caption over the product UI, max 7 words. */
+  --font-video-caption: Inter; /** Video caption over the product UI, max 7 words. */
+  --text-video-eyebrow: 20px; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
+  --leading-video-eyebrow: 24px; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
+  --font-weight-video-eyebrow: 600; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
+  --font-video-eyebrow: Inter; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
@@ -385,4 +415,11 @@
   --color-foreground-inverse-muted: var(--foreground-inverse-muted); /** Secondary text on a SysML node header: the guillemet kind designator and its icon. The header inverts between modes (dark #475569 in light mode, light #90b1df in dark mode), so this token inverts with it: gray/150 on the dark header at 6.90:1, gray/850 on the light header at 6.65:1. Both sit just below the element name, which is card at 7.58 and 7.99, so the hierarchy is carried without dropping to a grey that reads as disabled. */
   --color-secondary: var(--secondary); /** Surface of a secondary control. Same value as muted today, but a different role: muted is a de-emphasised area, secondary is a control. BlazorBlueprint expects this name for its theming. */
   --color-secondary-foreground: var(--secondary-foreground); /** Label on a secondary control. Same value as foreground today. Paired with secondary for BlazorBlueprint theming. */
+  --color-variant-electric: var(--variant-electric); /** Identity colour of the Electric propulsion variant and of the Electric configuration. A mark (dot, column cap, legend), never a surface and never a status. */
+  --color-variant-chemical: var(--variant-chemical); /** Identity colour of the Chemical propulsion variant and of the Chemical configuration. It shares its amber hue with warning, so it is always drawn as a dot beside the variant name and never alone, which keeps it from reading as a warning. */
+  --color-variant-hybrid: var(--variant-hybrid); /** Identity colour of the Hybrid propulsion variant and of the Hybrid configuration. A mark, never a surface. */
+  --color-code-keyword: var(--code-keyword); /** Syntax colour of a language keyword in the textual notation editor. */
+  --color-code-type: var(--code-type); /** Syntax colour of a type name in the textual notation editor. */
+  --color-code-number: var(--code-number); /** Syntax colour of a numeric literal and its unit in the textual notation editor. */
+  --color-code-comment: var(--code-comment); /** Syntax colour of a comment or doc block in the textual notation editor. */
 }

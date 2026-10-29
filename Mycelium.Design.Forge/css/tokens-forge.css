@@ -1,6 +1,9 @@
 /**
  * Do not edit directly, this file was auto-generated.
  * tokens-forge.css
+ * mycelium-version: 1.0.0
+ * mycelium-packageId: Mycelium.Design.Forge
+ * mycelium-releaseDate: 2026-10-29
  */
 
 :root {
@@ -305,6 +308,7 @@
   --color-drift-9-ca3-af: #9ca3af; /** DRIFT. 18 uses, no role assigned. Merge it into a role token or promote it; do not apply it to a new screen. */
   --color-drift-334-d73: #334d73; /** DRIFT. 1 uses, no role assigned. Merge it into a role token or promote it; do not apply it to a new screen. */
   --color-blue-300: #94b0eb;
+  --color-blue-700: #1d4ed8; /** Blue ramp step 700. Carries the Electric variant identity (variant/electric, light modes). */
   --color-blue-950: #141b29;
   --color-amber-300: #deb866;
   --color-amber-950: #261e10;
@@ -322,6 +326,8 @@
   --color-untriaged-ffb900: #ffb900; /** UNTRIAGED. A colour the screens use that has no semantic role yet. Do not alias anything to it; either give it a role or merge it away. */
   --color-untriaged-17191-f: #17191f; /** UNTRIAGED. A colour the screens use that has no semantic role yet. Do not alias anything to it; either give it a role or merge it away. */
   --color-untriaged-ffffff: #ffffff; /** UNTRIAGED. A colour the screens use that has no semantic role yet. Do not alias anything to it; either give it a role or merge it away. */
+  --color-violet-300: #b9a4dc; /** Violet ramp step 300. Dark-mode counterpart of violet/600 for variant/hybrid, clears 4.5:1 on card dark. */
+  --color-violet-600: #734fa6; /** Violet ramp step 600. Carries the Hybrid variant identity (variant/hybrid, light modes). */
   --spacing-1: 1px; /** Scale step derived from real usage in the prototypes. */
   --spacing-2: 2px; /** Scale primitive, value in px, derived from the reference prototypes. */
   --spacing-3: 3px; /** Scale step derived from real usage in the prototypes. */
@@ -341,6 +347,7 @@
   --spacing-17: 17px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-18: 18px; /** Scale primitive, value in px, derived from the reference prototypes. */
   --spacing-20: 20px; /** Scale primitive, value in px, derived from the reference prototypes. */
+  --spacing-21: 21px; /** Covers a value the Hypha MCP Apps design really uses. */
   --spacing-22: 22px; /** Scale step derived from real usage in the prototypes. */
   --spacing-23: 23px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-24: 24px; /** Scale primitive, value in px, derived from the reference prototypes. */
@@ -360,10 +367,13 @@
   --spacing-56: 56px; /** Scale step derived from real usage in the prototypes. */
   --spacing-60: 60px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-64: 64px; /** Scale primitive, value in px, derived from the reference prototypes. */
+  --spacing-68: 68px; /** Part Tree indent (20 + 12 per level). */
   --spacing-73: 73px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-80: 80px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-82: 82px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
+  --spacing-88: 88px; /** Indent of a variant nested three levels deep in the variation point table (16 + 3 x 24). Not a layout step: a tree indent. */
   --spacing-104: 104px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
+  --spacing-120: 120px; /** Indent that aligns the per-configuration values of an attribute under the value column of the Properties panel (label column 112 plus gap 8). */
   --spacing-240: 240px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-285: 285px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-317: 317px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
@@ -417,6 +427,9 @@
   --text-28: 28px; /** Scale primitive, value in px, derived from the reference prototypes. */
   --text-32: 32px; /** Scale step derived from real usage in the prototypes. */
   --text-44: 44px; /** Scale step derived from real usage in the prototypes. */
+  --text-48: 48px; /** Video typography step (product video, 1080p frame). Not for product UI. */
+  --text-72: 72px; /** Video typography step (product video, 1080p frame). Not for product UI. */
+  --text-120: 120px; /** Video typography step (product video, 1080p frame). Not for product UI. */
   --text-9-5: 9.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-10-5: 10.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-11-5: 11.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
@@ -470,6 +483,11 @@
   --typography-typography-ui-semibold-12: 600 12px/1.2 Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 445 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-12 on 2026-09-15 without moving any text. */
   --typography-typography-ui-mono-regular-11: 400 11px/1.2 'JetBrains Mono'; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 270 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-11 on 2026-09-15 without moving any text. */
   --typography-typography-ui-semibold-15: 600 15px/1.2 Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
+  --typography-typography-video-hero: 700 120px/120px Inter; /** Video hero line, one short statement per frame. 1080p frame. */
+  --typography-typography-video-title: 700 72px/80px Inter; /** Video title, chapter statements and end card tagline. */
+  --typography-typography-video-subtitle: 600 48px/56px Inter; /** Video subtitle, stage text above the product window. */
+  --typography-typography-video-caption: 500 32px/40px Inter; /** Video caption over the product UI, max 7 words. */
+  --typography-typography-video-eyebrow: 600 20px/24px Inter; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
   --background: var(--color-gray-100);
   --foreground: var(--color-gray-800);
   --foreground-muted: var(--color-gray-700);
@@ -610,6 +628,13 @@
   --foreground-inverse-muted: var(--color-gray-150); /** Secondary text on a SysML node header: the guillemet kind designator and its icon. The header inverts between modes (dark #475569 in light mode, light #90b1df in dark mode), so this token inverts with it: gray/150 on the dark header at 6.90:1, gray/850 on the light header at 6.65:1. Both sit just below the element name, which is card at 7.58 and 7.99, so the hierarchy is carried without dropping to a grey that reads as disabled. */
   --secondary: var(--color-gray-150); /** Surface of a secondary control. Same value as muted today, but a different role: muted is a de-emphasised area, secondary is a control. BlazorBlueprint expects this name for its theming. */
   --secondary-foreground: var(--color-gray-800); /** Label on a secondary control. Same value as foreground today. Paired with secondary for BlazorBlueprint theming. */
+  --variant-electric: var(--color-blue-700); /** Identity colour of the Electric propulsion variant and of the Electric configuration. A mark (dot, column cap, legend), never a surface and never a status. */
+  --variant-chemical: var(--color-status-warning-600); /** Identity colour of the Chemical propulsion variant and of the Chemical configuration. It shares its amber hue with warning, so it is always drawn as a dot beside the variant name and never alone, which keeps it from reading as a warning. */
+  --variant-hybrid: var(--color-violet-600); /** Identity colour of the Hybrid propulsion variant and of the Hybrid configuration. A mark, never a surface. */
+  --code-keyword: var(--color-copper-600); /** Syntax colour of a language keyword in the textual notation editor. */
+  --code-type: var(--color-status-info-700); /** Syntax colour of a type name in the textual notation editor. */
+  --code-number: var(--color-status-success-700); /** Syntax colour of a numeric literal and its unit in the textual notation editor. */
+  --code-comment: var(--color-gray-600); /** Syntax colour of a comment or doc block in the textual notation editor. */
 }
 
 .dark {
@@ -914,6 +939,7 @@
   --color-drift-9-ca3-af: #9ca3af; /** DRIFT. 18 uses, no role assigned. Merge it into a role token or promote it; do not apply it to a new screen. */
   --color-drift-334-d73: #334d73; /** DRIFT. 1 uses, no role assigned. Merge it into a role token or promote it; do not apply it to a new screen. */
   --color-blue-300: #94b0eb;
+  --color-blue-700: #1d4ed8; /** Blue ramp step 700. Carries the Electric variant identity (variant/electric, light modes). */
   --color-blue-950: #141b29;
   --color-amber-300: #deb866;
   --color-amber-950: #261e10;
@@ -931,6 +957,8 @@
   --color-untriaged-ffb900: #ffb900; /** UNTRIAGED. A colour the screens use that has no semantic role yet. Do not alias anything to it; either give it a role or merge it away. */
   --color-untriaged-17191-f: #17191f; /** UNTRIAGED. A colour the screens use that has no semantic role yet. Do not alias anything to it; either give it a role or merge it away. */
   --color-untriaged-ffffff: #ffffff; /** UNTRIAGED. A colour the screens use that has no semantic role yet. Do not alias anything to it; either give it a role or merge it away. */
+  --color-violet-300: #b9a4dc; /** Violet ramp step 300. Dark-mode counterpart of violet/600 for variant/hybrid, clears 4.5:1 on card dark. */
+  --color-violet-600: #734fa6; /** Violet ramp step 600. Carries the Hybrid variant identity (variant/hybrid, light modes). */
   --spacing-1: 1px; /** Scale step derived from real usage in the prototypes. */
   --spacing-2: 2px; /** Scale primitive, value in px, derived from the reference prototypes. */
   --spacing-3: 3px; /** Scale step derived from real usage in the prototypes. */
@@ -950,6 +978,7 @@
   --spacing-17: 17px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-18: 18px; /** Scale primitive, value in px, derived from the reference prototypes. */
   --spacing-20: 20px; /** Scale primitive, value in px, derived from the reference prototypes. */
+  --spacing-21: 21px; /** Covers a value the Hypha MCP Apps design really uses. */
   --spacing-22: 22px; /** Scale step derived from real usage in the prototypes. */
   --spacing-23: 23px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-24: 24px; /** Scale primitive, value in px, derived from the reference prototypes. */
@@ -969,10 +998,13 @@
   --spacing-56: 56px; /** Scale step derived from real usage in the prototypes. */
   --spacing-60: 60px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-64: 64px; /** Scale primitive, value in px, derived from the reference prototypes. */
+  --spacing-68: 68px; /** Part Tree indent (20 + 12 per level). */
   --spacing-73: 73px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-80: 80px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-82: 82px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
+  --spacing-88: 88px; /** Indent of a variant nested three levels deep in the variation point table (16 + 3 x 24). Not a layout step: a tree indent. */
   --spacing-104: 104px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
+  --spacing-120: 120px; /** Indent that aligns the per-configuration values of an attribute under the value column of the Properties panel (label column 112 plus gap 8). */
   --spacing-240: 240px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-285: 285px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-317: 317px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
@@ -1026,6 +1058,9 @@
   --text-28: 28px; /** Scale primitive, value in px, derived from the reference prototypes. */
   --text-32: 32px; /** Scale step derived from real usage in the prototypes. */
   --text-44: 44px; /** Scale step derived from real usage in the prototypes. */
+  --text-48: 48px; /** Video typography step (product video, 1080p frame). Not for product UI. */
+  --text-72: 72px; /** Video typography step (product video, 1080p frame). Not for product UI. */
+  --text-120: 120px; /** Video typography step (product video, 1080p frame). Not for product UI. */
   --text-9-5: 9.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-10-5: 10.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-11-5: 11.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
@@ -1079,6 +1114,11 @@
   --typography-typography-ui-semibold-12: 600 12px/1.2 Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 445 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-12 on 2026-09-15 without moving any text. */
   --typography-typography-ui-mono-regular-11: 400 11px/1.2 'JetBrains Mono'; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 270 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-11 on 2026-09-15 without moving any text. */
   --typography-typography-ui-semibold-15: 600 15px/1.2 Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
+  --typography-typography-video-hero: 700 120px/120px Inter; /** Video hero line, one short statement per frame. 1080p frame. */
+  --typography-typography-video-title: 700 72px/80px Inter; /** Video title, chapter statements and end card tagline. */
+  --typography-typography-video-subtitle: 600 48px/56px Inter; /** Video subtitle, stage text above the product window. */
+  --typography-typography-video-caption: 500 32px/40px Inter; /** Video caption over the product UI, max 7 words. */
+  --typography-typography-video-eyebrow: 600 20px/24px Inter; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
   --background: var(--color-gray-1100);
   --foreground: var(--color-gray-200);
   --foreground-muted: var(--color-gray-400);
@@ -1219,4 +1259,11 @@
   --foreground-inverse-muted: var(--color-gray-850); /** Secondary text on a SysML node header: the guillemet kind designator and its icon. The header inverts between modes (dark #475569 in light mode, light #90b1df in dark mode), so this token inverts with it: gray/150 on the dark header at 6.90:1, gray/850 on the light header at 6.65:1. Both sit just below the element name, which is card at 7.58 and 7.99, so the hierarchy is carried without dropping to a grey that reads as disabled. */
   --secondary: var(--color-gray-900); /** Surface of a secondary control. Same value as muted today, but a different role: muted is a de-emphasised area, secondary is a control. BlazorBlueprint expects this name for its theming. */
   --secondary-foreground: var(--color-gray-200); /** Label on a secondary control. Same value as foreground today. Paired with secondary for BlazorBlueprint theming. */
+  --variant-electric: var(--color-blue-300); /** Identity colour of the Electric propulsion variant and of the Electric configuration. A mark (dot, column cap, legend), never a surface and never a status. */
+  --variant-chemical: var(--color-amber-300); /** Identity colour of the Chemical propulsion variant and of the Chemical configuration. It shares its amber hue with warning, so it is always drawn as a dot beside the variant name and never alone, which keeps it from reading as a warning. */
+  --variant-hybrid: var(--color-violet-300); /** Identity colour of the Hybrid propulsion variant and of the Hybrid configuration. A mark, never a surface. */
+  --code-keyword: var(--color-copper-500); /** Syntax colour of a language keyword in the textual notation editor. */
+  --code-type: var(--color-status-info-700); /** Syntax colour of a type name in the textual notation editor. */
+  --code-number: var(--color-status-success-700); /** Syntax colour of a numeric literal and its unit in the textual notation editor. */
+  --code-comment: var(--color-gray-450); /** Syntax colour of a comment or doc block in the textual notation editor. */
 }
