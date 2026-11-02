@@ -45,9 +45,13 @@ export function mapTypographyToken(token, comment) {
     return [];
   }
 
-  const { fontSize, lineHeight, fontWeight, fontFamily } = value;
+  const { fontSize, lineHeight, fontWeight, fontFamily, letterSpacing } = value;
   const scale = token.path.slice(2).join('-');
   const declarations = [];
+
+  if (letterSpacing != null) {
+    declarations.push(`  --tracking-${scale}: var(--${token.name}-letter-spacing);${comment}`);
+  }
 
   if (fontSize?.value) {
     declarations.push(`  --text-${scale}: ${fontSize.value}px;${comment}`);

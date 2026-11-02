@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node build-tokens.mjs"
+    "build": "node build-tokens.mjs",
+    "test": "node --test"
   },
   "dependencies": {
     "style-dictionary": "^5.5.3"

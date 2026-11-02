@@ -7,6 +7,26 @@ import {
 import { getFileHeader, mapTokenToTailwindThemeProperty } from './tailwind-theme-mapper.mjs';
 
 /**
+ * Exposes typography tracking as a dimension before CSS's font shorthand drops it.
+ * Keeps the composite token intact for existing font shorthand consumers.
+ * @param {object} group - DTCG typography tree.
+ */
+function exposeLetterSpacing(group) {
+  for (const [key, token] of Object.entries(group)) {
+    if (!token || typeof token !== 'object' || key.startsWith('$')) continue;
+    if (token.$type === 'typography' && token.$value?.letterSpacing != null) {
+      group[`${key}-letter-spacing`] = {
+        $type: 'dimension',
+        $value: token.$value.letterSpacing,
+        $description: token.$description
+      };
+    } else if (!('$value' in token)) {
+      exposeLetterSpacing(token);
+    }
+  }
+}
+
+/**
  * Registers custom Style Dictionary parsers and formats for DTCG tokens and Tailwind v4.
  * @param {object} StyleDictionary - The StyleDictionary class or instance.
  */
@@ -54,6 +74,7 @@ export function registerCustomPlugins(StyleDictionary) {
       if (parsed?.typography?.typography?.raw) {
         delete parsed.typography.typography.raw;
       }
+      exposeLetterSpacing(parsed);
       return parsed;
     }
   });
