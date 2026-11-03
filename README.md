@@ -12,6 +12,11 @@ The design-token CSS for Mycelium. The designer's DTCG export of the shared Figm
 
 Both files carry a generated-file header. Never edit them by hand.
 
+Typography keeps its existing runtime font shorthand and exposes tracking separately,
+for example `--typography-typography-display-lg-letter-spacing: -0.25px` in both modes.
+Tailwind maps `--tracking-display-lg` to that runtime property (`tracking-display-lg`);
+use the runtime property directly for scoped CSS letter spacing.
+
 ## Repository layout
 
 | Path | Role |
@@ -49,6 +54,9 @@ dotnet build -p:MyceliumDesignForgeCssDir=../../mycelium-design/Mycelium.Design.
 ## Working locally
 
 Prerequisites: the .NET 10 SDK and Node.js 24 with npm.
+
+Run generator regression tests with `npm ci --ignore-scripts` followed by `npm test`
+in `generator/`. Tests ingest the supplied DTCG archive and generate both products.
 
 The extracted export is working data and is never committed; `tokens/` is git-ignored for local runs.
 

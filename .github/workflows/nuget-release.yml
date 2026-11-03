@@ -119,6 +119,10 @@ jobs:
       - name: Generate CSS
         run: dotnet run --file "${DESIGN_TOOLS}" -- generate "${RUNNER_TEMP}/tokens" generator "${PRODUCT}" "${CSS_DIR}"
 
+      - name: Test generator
+        working-directory: generator
+        run: npm test
+
       - name: Stamp release metadata into the generated CSS
         # Must run before Pack: NuGet stages <None Pack="true"> content during Build.
         run: dotnet run --file "${DESIGN_TOOLS}" -- stamp-css "${CSS_DIR}" "${VERSION}" "${PACKAGE_ID}" "${DATE}"
