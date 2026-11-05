@@ -1,9 +1,9 @@
 /**
  * Do not edit directly, this file was auto-generated.
  * theme-mycelium.css
- * mycelium-version: 1.0.0
+ * mycelium-version: 1.1.0
  * mycelium-packageId: Mycelium.Design.Bloom
- * mycelium-releaseDate: 2026-10-29
+ * mycelium-releaseDate: 2026-11-05
  */
 
 @theme inline {
@@ -124,157 +124,200 @@
   --shadow-modal: var(--shadow-modal); /** Modal dialogs centred over a dim backdrop. */
   --shadow-overlay: var(--shadow-overlay); /** Full-screen overlays and the command palette. */
   --shadow-sm: var(--shadow-sm); /** Raised control. Active segment of a segmented control. */
+  --tracking-display-2xl: var(--typography-typography-display-2xl-letter-spacing); /** Hero display. Rarely used in product UI. */
   --text-display-2xl: 40px; /** Hero display. Rarely used in product UI. */
   --leading-display-2xl: 48px; /** Hero display. Rarely used in product UI. */
   --font-weight-display-2xl: 700; /** Hero display. Rarely used in product UI. */
   --font-display-2xl: Inter; /** Hero display. Rarely used in product UI. */
+  --tracking-display-xl: var(--typography-typography-display-xl-letter-spacing); /** Large display. */
   --text-display-xl: 32px; /** Large display. */
   --leading-display-xl: 40px; /** Large display. */
   --font-weight-display-xl: 700; /** Large display. */
   --font-display-xl: Inter; /** Large display. */
+  --tracking-display-lg: var(--typography-typography-display-lg-letter-spacing); /** Page title on a marketing or docs surface. */
   --text-display-lg: 24px; /** Page title on a marketing or docs surface. */
   --leading-display-lg: 32px; /** Page title on a marketing or docs surface. */
   --font-weight-display-lg: 600; /** Page title on a marketing or docs surface. */
   --font-display-lg: Inter; /** Page title on a marketing or docs surface. */
+  --tracking-heading-md: var(--typography-typography-heading-md-letter-spacing); /** Section title inside a page body. */
   --text-heading-md: 20px; /** Section title inside a page body. */
   --leading-heading-md: 28px; /** Section title inside a page body. */
   --font-weight-heading-md: 600; /** Section title inside a page body. */
   --font-heading-md: Inter; /** Section title inside a page body. */
+  --tracking-heading-sm: var(--typography-typography-heading-sm-letter-spacing); /** Card or panel title. */
   --text-heading-sm: 18px; /** Card or panel title. */
   --leading-heading-sm: 26px; /** Card or panel title. */
   --font-weight-heading-sm: 600; /** Card or panel title. */
   --font-heading-sm: Inter; /** Card or panel title. */
+  --tracking-heading-xs: var(--typography-typography-heading-xs-letter-spacing); /** Group header inside a list. */
   --text-heading-xs: 16px; /** Group header inside a list. */
   --leading-heading-xs: 24px; /** Group header inside a list. */
   --font-weight-heading-xs: 600; /** Group header inside a list. */
   --font-heading-xs: Inter; /** Group header inside a list. */
+  --tracking-body-lg: var(--typography-typography-body-lg-letter-spacing); /** Lead paragraph. */
   --text-body-lg: 16px; /** Lead paragraph. */
   --leading-body-lg: 24px; /** Lead paragraph. */
   --font-weight-body-lg: 400; /** Lead paragraph. */
   --font-body-lg: Inter; /** Lead paragraph. */
+  --tracking-body-md: var(--typography-typography-body-md-letter-spacing); /** Default body text and input values. */
   --text-body-md: 14px; /** Default body text and input values. */
   --leading-body-md: 20px; /** Default body text and input values. */
   --font-weight-body-md: 400; /** Default body text and input values. */
   --font-body-md: Inter; /** Default body text and input values. */
+  --tracking-body-md-medium: var(--typography-typography-body-md-medium-letter-spacing); /** Body text with emphasis. */
   --text-body-md-medium: 14px; /** Body text with emphasis. */
   --leading-body-md-medium: 20px; /** Body text with emphasis. */
   --font-weight-body-md-medium: 500; /** Body text with emphasis. */
   --font-body-md-medium: Inter; /** Body text with emphasis. */
+  --tracking-body-sm: var(--typography-typography-body-sm-letter-spacing); /** Row primary text, table cells. */
   --text-body-sm: 12px; /** Row primary text, table cells. */
   --leading-body-sm: 18px; /** Row primary text, table cells. */
   --font-weight-body-sm: 400; /** Row primary text, table cells. */
   --font-body-sm: Inter; /** Row primary text, table cells. */
+  --tracking-body-sm-medium: var(--typography-typography-body-sm-medium-letter-spacing); /** Row text with emphasis. */
   --text-body-sm-medium: 12px; /** Row text with emphasis. */
   --leading-body-sm-medium: 18px; /** Row text with emphasis. */
   --font-weight-body-sm-medium: 500; /** Row text with emphasis. */
   --font-body-sm-medium: Inter; /** Row text with emphasis. */
+  --tracking-body-xs: var(--typography-typography-body-xs-letter-spacing); /** Helper text under an input, stereotypes. */
   --text-body-xs: 11px; /** Helper text under an input, stereotypes. */
   --leading-body-xs: 16px; /** Helper text under an input, stereotypes. */
   --font-weight-body-xs: 500; /** Helper text under an input, stereotypes. */
   --font-body-xs: Inter; /** Helper text under an input, stereotypes. */
+  --tracking-body-prose-13: var(--typography-typography-body-prose-13-letter-spacing); /** Paragraph of a legal document on the Forge site. 13/21 gives about 78 characters on a 760px measure. */
   --text-body-prose-13: 13px; /** Paragraph of a legal document on the Forge site. 13/21 gives about 78 characters on a 760px measure. */
   --leading-body-prose-13: 21px; /** Paragraph of a legal document on the Forge site. 13/21 gives about 78 characters on a 760px measure. */
   --font-weight-body-prose-13: 400; /** Paragraph of a legal document on the Forge site. 13/21 gives about 78 characters on a 760px measure. */
   --font-body-prose-13: Inter; /** Paragraph of a legal document on the Forge site. 13/21 gives about 78 characters on a 760px measure. */
+  --tracking-body-prose-12: var(--typography-typography-body-prose-12-letter-spacing); /** Hypha assistant prose and labels. */
   --text-body-prose-12: 12px; /** Hypha assistant prose and labels. */
   --leading-body-prose-12: 19px; /** Hypha assistant prose and labels. */
   --font-weight-body-prose-12: 400; /** Hypha assistant prose and labels. */
   --font-body-prose-12: Inter; /** Hypha assistant prose and labels. */
+  --tracking-label-md: var(--typography-typography-label-md-letter-spacing); /** Form label. */
   --text-label-md: 14px; /** Form label. */
   --leading-label-md: 20px; /** Form label. */
   --font-weight-label-md: 500; /** Form label. */
   --font-label-md: Inter; /** Form label. */
+  --tracking-label-sm: var(--typography-typography-label-sm-letter-spacing); /** Compact label, chip text. */
   --text-label-sm: 12px; /** Compact label, chip text. */
   --leading-label-sm: 16px; /** Compact label, chip text. */
   --font-weight-label-sm: 500; /** Compact label, chip text. */
   --font-label-sm: Inter; /** Compact label, chip text. */
+  --tracking-label-xs: var(--typography-typography-label-xs-letter-spacing); /** ALL CAPS section label, count pill. */
   --text-label-xs: 10px; /** ALL CAPS section label, count pill. */
   --leading-label-xs: 14px; /** ALL CAPS section label, count pill. */
   --font-weight-label-xs: 600; /** ALL CAPS section label, count pill. */
   --font-label-xs: Inter; /** ALL CAPS section label, count pill. */
+  --tracking-mono-md: var(--typography-typography-mono-md-letter-spacing); /** Code and identifiers, default size. */
   --text-mono-md: 13px; /** Code and identifiers, default size. */
   --leading-mono-md: 20px; /** Code and identifiers, default size. */
   --font-weight-mono-md: 400; /** Code and identifiers, default size. */
   --font-mono-md: 'JetBrains Mono'; /** Code and identifiers, default size. */
+  --tracking-mono-sm: var(--typography-typography-mono-sm-letter-spacing); /** Numeric table cells, versions. */
   --text-mono-sm: 12px; /** Numeric table cells, versions. */
   --leading-mono-sm: 18px; /** Numeric table cells, versions. */
   --font-weight-mono-sm: 400; /** Numeric table cells, versions. */
   --font-mono-sm: 'JetBrains Mono'; /** Numeric table cells, versions. */
+  --tracking-mono-xs: var(--typography-typography-mono-xs-letter-spacing); /** Compact mono, badges and hashes. */
   --text-mono-xs: 11px; /** Compact mono, badges and hashes. */
   --leading-mono-xs: 16px; /** Compact mono, badges and hashes. */
   --font-weight-mono-xs: 500; /** Compact mono, badges and hashes. */
   --font-mono-xs: 'JetBrains Mono'; /** Compact mono, badges and hashes. */
+  --tracking-mono-code-11-5: var(--typography-typography-mono-code-11-5-letter-spacing); /** Code preview inside the kpar archive browser and the forum code blocks. */
   --text-mono-code-11-5: 11.5px; /** Code preview inside the kpar archive browser and the forum code blocks. */
   --leading-mono-code-11-5: 19px; /** Code preview inside the kpar archive browser and the forum code blocks. */
   --font-weight-mono-code-11-5: 400; /** Code preview inside the kpar archive browser and the forum code blocks. */
   --font-mono-code-11-5: 'JetBrains Mono'; /** Code preview inside the kpar archive browser and the forum code blocks. */
+  --tracking-ui-regular-12: var(--typography-typography-ui-regular-12-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 3070 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-12 on 2026-09-15 without moving any text. */
   --text-ui-regular-12: 12px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 3070 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-12 on 2026-09-15 without moving any text. */
   --font-weight-ui-regular-12: 400; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 3070 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-12 on 2026-09-15 without moving any text. */
   --font-ui-regular-12: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 3070 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-12 on 2026-09-15 without moving any text. */
+  --tracking-ui-regular-11: var(--typography-typography-ui-regular-11-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-11 on 2026-09-15 without moving any text. */
   --text-ui-regular-11: 11px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-11 on 2026-09-15 without moving any text. */
   --font-weight-ui-regular-11: 400; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-11 on 2026-09-15 without moving any text. */
   --font-ui-regular-11: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-11 on 2026-09-15 without moving any text. */
+  --tracking-ui-regular-13: var(--typography-typography-ui-regular-13-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2142 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-13 on 2026-09-15 without moving any text. */
   --text-ui-regular-13: 13px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2142 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-13 on 2026-09-15 without moving any text. */
   --font-weight-ui-regular-13: 400; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2142 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-13 on 2026-09-15 without moving any text. */
   --font-ui-regular-13: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2142 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-13 on 2026-09-15 without moving any text. */
+  --tracking-ui-medium-12: var(--typography-typography-ui-medium-12-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2129 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-12 on 2026-09-15 without moving any text. */
   --text-ui-medium-12: 12px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2129 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-12 on 2026-09-15 without moving any text. */
   --font-weight-ui-medium-12: 500; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2129 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-12 on 2026-09-15 without moving any text. */
   --font-ui-medium-12: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 2129 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-12 on 2026-09-15 without moving any text. */
+  --tracking-ui-semibold-11: var(--typography-typography-ui-semibold-11-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1402 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-11 on 2026-09-15 without moving any text. */
   --text-ui-semibold-11: 11px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1402 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-11 on 2026-09-15 without moving any text. */
   --font-weight-ui-semibold-11: 600; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1402 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-11 on 2026-09-15 without moving any text. */
   --font-ui-semibold-11: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1402 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-11 on 2026-09-15 without moving any text. */
+  --tracking-ui-mono-bold-10: var(--typography-typography-ui-mono-bold-10-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1410 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-bold-10 on 2026-09-15 without moving any text. */
   --text-ui-mono-bold-10: 10px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1410 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-bold-10 on 2026-09-15 without moving any text. */
   --font-weight-ui-mono-bold-10: 700; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1410 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-bold-10 on 2026-09-15 without moving any text. */
   --font-ui-mono-bold-10: 'JetBrains Mono'; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1410 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-bold-10 on 2026-09-15 without moving any text. */
+  --tracking-ui-medium-13: var(--typography-typography-ui-medium-13-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1452 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-13 on 2026-09-15 without moving any text. */
   --text-ui-medium-13: 13px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1452 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-13 on 2026-09-15 without moving any text. */
   --font-weight-ui-medium-13: 500; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1452 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-13 on 2026-09-15 without moving any text. */
   --font-ui-medium-13: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 1452 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-13 on 2026-09-15 without moving any text. */
+  --tracking-ui-semibold-13: var(--typography-typography-ui-semibold-13-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 964 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-13 on 2026-09-15 without moving any text. */
   --text-ui-semibold-13: 13px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 964 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-13 on 2026-09-15 without moving any text. */
   --font-weight-ui-semibold-13: 600; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 964 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-13 on 2026-09-15 without moving any text. */
   --font-ui-semibold-13: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 964 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-13 on 2026-09-15 without moving any text. */
+  --tracking-ui-semibold-10: var(--typography-typography-ui-semibold-10-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 736 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-10 on 2026-09-15 without moving any text. */
   --text-ui-semibold-10: 10px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 736 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-10 on 2026-09-15 without moving any text. */
   --font-weight-ui-semibold-10: 600; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 736 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-10 on 2026-09-15 without moving any text. */
   --font-ui-semibold-10: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 736 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-10 on 2026-09-15 without moving any text. */
+  --tracking-ui-medium-11: var(--typography-typography-ui-medium-11-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 745 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-11 on 2026-09-15 without moving any text. */
   --text-ui-medium-11: 11px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 745 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-11 on 2026-09-15 without moving any text. */
   --font-weight-ui-medium-11: 500; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 745 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-11 on 2026-09-15 without moving any text. */
   --font-ui-medium-11: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 745 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-11 on 2026-09-15 without moving any text. */
+  --tracking-ui-regular-10: var(--typography-typography-ui-regular-10-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 797 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-10 on 2026-09-15 without moving any text. */
   --text-ui-regular-10: 10px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 797 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-10 on 2026-09-15 without moving any text. */
   --font-weight-ui-regular-10: 400; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 797 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-10 on 2026-09-15 without moving any text. */
   --font-ui-regular-10: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 797 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-regular-10 on 2026-09-15 without moving any text. */
+  --tracking-ui-semibold-9: var(--typography-typography-ui-semibold-9-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-9 on 2026-09-15 without moving any text. */
   --text-ui-semibold-9: 9px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-9 on 2026-09-15 without moving any text. */
   --font-weight-ui-semibold-9: 600; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-9 on 2026-09-15 without moving any text. */
   --font-ui-semibold-9: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 463 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-9 on 2026-09-15 without moving any text. */
+  --tracking-ui-mono-regular-10: var(--typography-typography-ui-mono-regular-10-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 540 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-10 on 2026-09-15 without moving any text. */
   --text-ui-mono-regular-10: 10px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 540 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-10 on 2026-09-15 without moving any text. */
   --font-weight-ui-mono-regular-10: 400; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 540 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-10 on 2026-09-15 without moving any text. */
   --font-ui-mono-regular-10: 'JetBrains Mono'; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 540 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-10 on 2026-09-15 without moving any text. */
+  --tracking-ui-medium-10: var(--typography-typography-ui-medium-10-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 434 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-10 on 2026-09-15 without moving any text. */
   --text-ui-medium-10: 10px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 434 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-10 on 2026-09-15 without moving any text. */
   --font-weight-ui-medium-10: 500; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 434 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-10 on 2026-09-15 without moving any text. */
   --font-ui-medium-10: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 434 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-medium-10 on 2026-09-15 without moving any text. */
+  --tracking-ui-semibold-12: var(--typography-typography-ui-semibold-12-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 445 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-12 on 2026-09-15 without moving any text. */
   --text-ui-semibold-12: 12px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 445 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-12 on 2026-09-15 without moving any text. */
   --font-weight-ui-semibold-12: 600; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 445 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-12 on 2026-09-15 without moving any text. */
   --font-ui-semibold-12: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 445 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-12 on 2026-09-15 without moving any text. */
+  --tracking-ui-mono-regular-11: var(--typography-typography-ui-mono-regular-11-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 270 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-11 on 2026-09-15 without moving any text. */
   --text-ui-mono-regular-11: 11px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 270 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-11 on 2026-09-15 without moving any text. */
   --font-weight-ui-mono-regular-11: 400; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 270 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-11 on 2026-09-15 without moving any text. */
   --font-ui-mono-regular-11: 'JetBrains Mono'; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 270 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/jetbrains-mono-regular-11 on 2026-09-15 without moving any text. */
+  --tracking-ui-semibold-15: var(--typography-typography-ui-semibold-15-letter-spacing); /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
   --text-ui-semibold-15: 15px; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
   --font-weight-ui-semibold-15: 600; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
   --font-ui-semibold-15: Inter; /** Dense interface text at the natural line height. The ui family is what the design actually uses: 274 texts on this one. Distinct from typography/body/*, which sets an explicit pixel line height for prose. Promoted from typography/raw/inter-semi-bold-15 on 2026-09-15 without moving any text. */
+  --tracking-video-hero: var(--typography-typography-video-hero-letter-spacing); /** Video hero line, one short statement per frame. 1080p frame. */
   --text-video-hero: 120px; /** Video hero line, one short statement per frame. 1080p frame. */
   --leading-video-hero: 120px; /** Video hero line, one short statement per frame. 1080p frame. */
   --font-weight-video-hero: 700; /** Video hero line, one short statement per frame. 1080p frame. */
   --font-video-hero: Inter; /** Video hero line, one short statement per frame. 1080p frame. */
+  --tracking-video-title: var(--typography-typography-video-title-letter-spacing); /** Video title, chapter statements and end card tagline. */
   --text-video-title: 72px; /** Video title, chapter statements and end card tagline. */
   --leading-video-title: 80px; /** Video title, chapter statements and end card tagline. */
   --font-weight-video-title: 700; /** Video title, chapter statements and end card tagline. */
   --font-video-title: Inter; /** Video title, chapter statements and end card tagline. */
+  --tracking-video-subtitle: var(--typography-typography-video-subtitle-letter-spacing); /** Video subtitle, stage text above the product window. */
   --text-video-subtitle: 48px; /** Video subtitle, stage text above the product window. */
   --leading-video-subtitle: 56px; /** Video subtitle, stage text above the product window. */
   --font-weight-video-subtitle: 600; /** Video subtitle, stage text above the product window. */
   --font-video-subtitle: Inter; /** Video subtitle, stage text above the product window. */
+  --tracking-video-caption: var(--typography-typography-video-caption-letter-spacing); /** Video caption over the product UI, max 7 words. */
   --text-video-caption: 32px; /** Video caption over the product UI, max 7 words. */
   --leading-video-caption: 40px; /** Video caption over the product UI, max 7 words. */
   --font-weight-video-caption: 500; /** Video caption over the product UI, max 7 words. */
   --font-video-caption: Inter; /** Video caption over the product UI, max 7 words. */
+  --tracking-video-eyebrow: var(--typography-typography-video-eyebrow-letter-spacing); /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
   --text-video-eyebrow: 20px; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
   --leading-video-eyebrow: 24px; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
   --font-weight-video-eyebrow: 600; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
