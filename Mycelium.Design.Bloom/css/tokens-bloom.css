@@ -1,9 +1,9 @@
 /**
  * Do not edit directly, this file was auto-generated.
  * tokens-bloom.css
- * mycelium-version: 1.1.0
+ * mycelium-version: 1.2.0
  * mycelium-packageId: Mycelium.Design.Bloom
- * mycelium-releaseDate: 2026-11-06
+ * mycelium-releaseDate: 2026-11-19
  */
 
 :root {
@@ -375,9 +375,14 @@
   --spacing-104: 104px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-120: 120px; /** Indent that aligns the per-configuration values of an attribute under the value column of the Properties panel (label column 112 plus gap 8). */
   --spacing-240: 240px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-260: 260px; /** Width of the account menu (Account menu component set, every role variant). Fixed so a long name or email truncates the same way in every variant; read by Bloom as var(--spacing-260). */
   --spacing-285: 285px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-317: 317px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-340: 340px; /** Width of the search field of the list toolbars (Projects, Members, Organizations, Users). A layout width, above the rhythm on purpose. */
   --spacing-405: 405px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-440: 440px; /** Width of the authentication and connection cards (Connect to server). A layout width, not a content gap; above the rhythm on purpose. */
+  --spacing-460: 460px; /** Width of the centred card on the invitation screen (Proto / Accept Invitation, 3761:15002). A layout width rather than a content rhythm, which is why it sits above the scale. */
+  --spacing-1110: 1110px; /** Width of the organisation content column at 1920 (Proto / User Management, Proto / Org Dashboard, organisation settings): 1920 minus two 405 side offsets. Consumed by the Bloom OrganizationLayout (decision Q28). A layout width rather than a content rhythm, which is why it sits above the scale. */
   --spacing-overlap-6: -6px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
   --spacing-overlap-5: -5px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
   --spacing-overlap-8: -8px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
@@ -437,6 +442,7 @@
   --text-13-5: 13.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-5-5: 5.5px; /** Rounded from a fractional value left by a rescale() on the diagram zoom control. The change is under half a pixel; the point is that the value is now a token. */
   --text-8-5: 8.5px; /** Initials of a 20px presence avatar in a dense stack. */
+  --border-width-1: 1px; /** Hairline stroke weight, 1 px: borders of cards, inputs, tables, menus and dividers. */
   --shadow-xs: 0px 1px 3px 0px rgb(6% 9% 16% / 0.05); /** Hairline lift. Segmented controls, small toggles. */
   --shadow-md: 0px 2px 8px 0px rgb(6% 9% 16% / 0.06); /** Card elevation. The default panel and card shadow. */
   --shadow-lg: 0px 4px 16px -2px rgb(6% 9% 16% / 0.06); /** Sticky or primary card. One step above shadow/md. */
@@ -531,6 +537,7 @@
   --typography-typography-video-subtitle-letter-spacing: -0.5px; /** Video subtitle, stage text above the product window. */
   --typography-typography-video-caption-letter-spacing: 0px; /** Video caption over the product UI, max 7 words. */
   --typography-typography-video-eyebrow-letter-spacing: 1.5px; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
+  --border-width-default: var(--border-width-1); /** Default border width of Bloom and Forge surfaces (cards, inputs, tables, menus, dividers), 1 px. Read by the products as var(--border-width-default). */
   --background: var(--color-gray-100);
   --foreground: var(--color-gray-800);
   --foreground-muted: var(--color-gray-700);
@@ -678,6 +685,8 @@
   --code-type: var(--color-status-info-700); /** Syntax colour of a type name in the textual notation editor. */
   --code-number: var(--color-status-success-700); /** Syntax colour of a numeric literal and its unit in the textual notation editor. */
   --code-comment: var(--color-gray-600); /** Syntax colour of a comment or doc block in the textual notation editor. */
+  --auth-card-width: var(--spacing-440); /** Width of the card of the authentication and server connection screens (Connect to server, 440). Bloom reads it for the start page card. */
+  --search-width: var(--spacing-340); /** Width of the search field that opens every list toolbar (Projects, Members, Organizations, Users), 340. One width for every list so the toolbars line up. */
 }
 
 .dark {
@@ -1049,9 +1058,14 @@
   --spacing-104: 104px; /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-120: 120px; /** Indent that aligns the per-configuration values of an attribute under the value column of the Properties panel (label column 112 plus gap 8). */
   --spacing-240: 240px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-260: 260px; /** Width of the account menu (Account menu component set, every role variant). Fixed so a long name or email truncates the same way in every variant; read by Bloom as var(--spacing-260). */
   --spacing-285: 285px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-317: 317px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-340: 340px; /** Width of the search field of the list toolbars (Projects, Members, Organizations, Users). A layout width, above the rhythm on purpose. */
   --spacing-405: 405px; /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-440: 440px; /** Width of the authentication and connection cards (Connect to server). A layout width, not a content gap; above the rhythm on purpose. */
+  --spacing-460: 460px; /** Width of the centred card on the invitation screen (Proto / Accept Invitation, 3761:15002). A layout width rather than a content rhythm, which is why it sits above the scale. */
+  --spacing-1110: 1110px; /** Width of the organisation content column at 1920 (Proto / User Management, Proto / Org Dashboard, organisation settings): 1920 minus two 405 side offsets. Consumed by the Bloom OrganizationLayout (decision Q28). A layout width rather than a content rhythm, which is why it sits above the scale. */
   --spacing-overlap-6: -6px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
   --spacing-overlap-5: -5px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
   --spacing-overlap-8: -8px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
@@ -1111,6 +1125,7 @@
   --text-13-5: 13.5px; /** Half step. The hyphen stands for the decimal point, so radius/1-5 is 1.5px. It exists because the design really uses it, not because the scale wanted it. */
   --text-5-5: 5.5px; /** Rounded from a fractional value left by a rescale() on the diagram zoom control. The change is under half a pixel; the point is that the value is now a token. */
   --text-8-5: 8.5px; /** Initials of a 20px presence avatar in a dense stack. */
+  --border-width-1: 1px; /** Hairline stroke weight, 1 px: borders of cards, inputs, tables, menus and dividers. */
   --shadow-xs: 0px 1px 3px 0px rgb(6% 9% 16% / 0.05); /** Hairline lift. Segmented controls, small toggles. */
   --shadow-md: 0px 2px 8px 0px rgb(6% 9% 16% / 0.06); /** Card elevation. The default panel and card shadow. */
   --shadow-lg: 0px 4px 16px -2px rgb(6% 9% 16% / 0.06); /** Sticky or primary card. One step above shadow/md. */
@@ -1205,6 +1220,7 @@
   --typography-typography-video-subtitle-letter-spacing: -0.5px; /** Video subtitle, stage text above the product window. */
   --typography-typography-video-caption-letter-spacing: 0px; /** Video caption over the product UI, max 7 words. */
   --typography-typography-video-eyebrow-letter-spacing: 1.5px; /** Video eyebrow above a title, all caps. Letter spacing lives in the style. */
+  --border-width-default: var(--border-width-1); /** Default border width of Bloom and Forge surfaces (cards, inputs, tables, menus, dividers), 1 px. Read by the products as var(--border-width-default). */
   --background: var(--color-gray-1050);
   --foreground: var(--color-gray-200);
   --foreground-muted: var(--color-gray-400);
@@ -1352,4 +1368,6 @@
   --code-type: var(--color-status-info-700); /** Syntax colour of a type name in the textual notation editor. */
   --code-number: var(--color-status-success-700); /** Syntax colour of a numeric literal and its unit in the textual notation editor. */
   --code-comment: var(--color-gray-450); /** Syntax colour of a comment or doc block in the textual notation editor. */
+  --auth-card-width: var(--spacing-440); /** Width of the card of the authentication and server connection screens (Connect to server, 440). Bloom reads it for the start page card. */
+  --search-width: var(--spacing-340); /** Width of the search field that opens every list toolbar (Projects, Members, Organizations, Users), 340. One width for every list so the toolbars line up. */
 }

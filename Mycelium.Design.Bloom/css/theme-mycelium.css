@@ -1,9 +1,9 @@
 /**
  * Do not edit directly, this file was auto-generated.
  * theme-mycelium.css
- * mycelium-version: 1.1.0
+ * mycelium-version: 1.2.0
  * mycelium-packageId: Mycelium.Design.Bloom
- * mycelium-releaseDate: 2026-11-06
+ * mycelium-releaseDate: 2026-11-19
  */
 
 @theme inline {
@@ -54,9 +54,14 @@
   --spacing-26: var(--spacing-104); /** Extends the numeric scale to cover a value the Bloom design actually uses. Added rather than rounding the design onto a scale that was never designed for it. */
   --spacing-30: var(--spacing-120); /** Indent that aligns the per-configuration values of an attribute under the value column of the Properties panel (label column 112 plus gap 8). */
   --spacing-60: var(--spacing-240); /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-65: var(--spacing-260); /** Width of the account menu (Account menu component set, every role variant). Fixed so a long name or email truncates the same way in every variant; read by Bloom as var(--spacing-260). */
   --spacing-71\.25: var(--spacing-285); /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
   --spacing-79\.25: var(--spacing-317); /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-85: var(--spacing-340); /** Width of the search field of the list toolbars (Projects, Members, Organizations, Users). A layout width, above the rhythm on purpose. */
   --spacing-101\.25: var(--spacing-405); /** Large layout offset. It positions a block on the canvas rather than spacing content, which is why it sits above the rhythm. */
+  --spacing-110: var(--spacing-440); /** Width of the authentication and connection cards (Connect to server). A layout width, not a content gap; above the rhythm on purpose. */
+  --spacing-115: var(--spacing-460); /** Width of the centred card on the invitation screen (Proto / Accept Invitation, 3761:15002). A layout width rather than a content rhythm, which is why it sits above the scale. */
+  --spacing-277\.5: var(--spacing-1110); /** Width of the organisation content column at 1920 (Proto / User Management, Proto / Org Dashboard, organisation settings): 1920 minus two 405 side offsets. Consumed by the Bloom OrganizationLayout (decision Q28). A layout width rather than a content rhythm, which is why it sits above the scale. */
   --spacing-overlap-6: -6px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
   --spacing-overlap-5: -5px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
   --spacing-overlap-8: -8px; /** Negative spacing: a deliberate overlap, such as stacked presence avatars. Named overlap so it never reads as a mistake. */
